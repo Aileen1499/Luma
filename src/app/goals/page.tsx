@@ -3,12 +3,29 @@
 import React, { useState } from "react";
 import { useLiveQuery } from "dexie-react-hooks";
 import { getGoals, deleteGoal } from "@/lib/db/repository";
+import { ClientOnly } from "@/components/ClientOnly";
 import { AppShell } from "@/components/AppShell";
 import { EmptyState } from "@/components/EmptyState";
 import { GoalModal } from "@/components/GoalModal";
 import { Target, Plus, Trash2, Calendar } from "lucide-react";
 
 export default function GoalsPage() {
+  return (
+    <ClientOnly
+      fallback={
+        <div className="min-h-screen flex items-center justify-center p-4">
+          <div className="text-xs font-semibold text-text-2 tracking-widest uppercase">
+            Loading Goals…
+          </div>
+        </div>
+      }
+    >
+      <GoalsContent />
+    </ClientOnly>
+  );
+}
+
+function GoalsContent() {
   const [goalModalOpen, setGoalModalOpen] = useState(false);
   const goals = useLiveQuery(() => getGoals(), []);
   const allGoals = goals || [];

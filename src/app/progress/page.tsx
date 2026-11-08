@@ -9,10 +9,27 @@ import {
   calculateStreak,
   calculateWeeklyCompletion,
 } from "@/lib/i18n/format";
+import { ClientOnly } from "@/components/ClientOnly";
 import { AppShell } from "@/components/AppShell";
 import { BarChart2, Flame, Award, Plus, X } from "lucide-react";
 
 export default function ProgressPage() {
+  return (
+    <ClientOnly
+      fallback={
+        <div className="min-h-screen flex items-center justify-center p-4">
+          <div className="text-xs font-semibold text-text-2 tracking-widest uppercase">
+            Loading Progress…
+          </div>
+        </div>
+      }
+    >
+      <ProgressContent />
+    </ClientOnly>
+  );
+}
+
+function ProgressContent() {
   const [reviewModalOpen, setReviewModalOpen] = useState(false);
   const [reflectionText, setReflectionText] = useState("");
 

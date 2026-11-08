@@ -10,6 +10,7 @@ import {
   clearAllLumaData,
 } from "@/lib/db/exportImport";
 import { toISODate } from "@/lib/i18n/format";
+import { ClientOnly } from "@/components/ClientOnly";
 import { AppShell } from "@/components/AppShell";
 import {
   User,
@@ -25,6 +26,22 @@ import {
 } from "lucide-react";
 
 export default function MePage() {
+  return (
+    <ClientOnly
+      fallback={
+        <div className="min-h-screen flex items-center justify-center p-4">
+          <div className="text-xs font-semibold text-text-2 tracking-widest uppercase">
+            Loading Settings…
+          </div>
+        </div>
+      }
+    >
+      <MeContent />
+    </ClientOnly>
+  );
+}
+
+function MeContent() {
   const settings = useLiveQuery(() => getSettings(), []);
   const [displayName, setDisplayName] = useState<string>("");
   const [isExporting, setIsExporting] = useState(false);

@@ -5,6 +5,7 @@ import { useLiveQuery } from "dexie-react-hooks";
 import { getTasks, toggleTaskComplete } from "@/lib/db/repository";
 import type { Task } from "@/lib/db/types";
 import { toISODate } from "@/lib/i18n/format";
+import { ClientOnly } from "@/components/ClientOnly";
 import { AppShell } from "@/components/AppShell";
 import { EmptyState } from "@/components/EmptyState";
 import { TaskModal } from "@/components/TaskModal";
@@ -12,6 +13,22 @@ import { useToast } from "@/components/Toast";
 import { CheckSquare, Check, AlignLeft, Plus } from "lucide-react";
 
 export default function TodoPage() {
+  return (
+    <ClientOnly
+      fallback={
+        <div className="min-h-screen flex items-center justify-center p-4">
+          <div className="text-xs font-semibold text-text-2 tracking-widest uppercase">
+            Loading Tasks…
+          </div>
+        </div>
+      }
+    >
+      <TodoContent />
+    </ClientOnly>
+  );
+}
+
+function TodoContent() {
   const [tab, setTab] = useState<"today" | "upcoming" | "someday">("today");
   const [editingTask, setEditingTask] = useState<Task | null>(null);
   const [taskModalOpen, setTaskModalOpen] = useState(false);

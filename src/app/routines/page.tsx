@@ -10,12 +10,29 @@ import {
 } from "@/lib/db/repository";
 import type { Routine, ScheduledSessionState } from "@/lib/db/types";
 import { toISODate, getWeekDays } from "@/lib/i18n/format";
+import { ClientOnly } from "@/components/ClientOnly";
 import { AppShell } from "@/components/AppShell";
 import { EmptyState } from "@/components/EmptyState";
 import { RoutineModal } from "@/components/RoutineModal";
 import { RotateCcw, Check, Plus, Pause, Play, Trash2 } from "lucide-react";
 
 export default function RoutinesPage() {
+  return (
+    <ClientOnly
+      fallback={
+        <div className="min-h-screen flex items-center justify-center p-4">
+          <div className="text-xs font-semibold text-text-2 tracking-widest uppercase">
+            Loading Routines…
+          </div>
+        </div>
+      }
+    >
+      <RoutinesContent />
+    </ClientOnly>
+  );
+}
+
+function RoutinesContent() {
   const [viewMode, setViewMode] = useState<"programs" | "week_grid">("programs");
   const [routineModalOpen, setRoutineModalOpen] = useState(false);
   const [selectedRoutine, setSelectedRoutine] = useState<any | null>(null);

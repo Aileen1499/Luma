@@ -18,6 +18,7 @@ import {
   calculateStreak,
   calculateWeeklyCompletion,
 } from "@/lib/i18n/format";
+import { ClientOnly } from "@/components/ClientOnly";
 import { AppShell } from "@/components/AppShell";
 import { EmptyState } from "@/components/EmptyState";
 import { TaskModal } from "@/components/TaskModal";
@@ -36,6 +37,22 @@ import {
 } from "lucide-react";
 
 export default function TodayPage() {
+  return (
+    <ClientOnly
+      fallback={
+        <div className="min-h-screen flex items-center justify-center p-4">
+          <div className="text-xs font-semibold text-text-2 tracking-widest uppercase">
+            Loading LUMA…
+          </div>
+        </div>
+      }
+    >
+      <TodayContent />
+    </ClientOnly>
+  );
+}
+
+function TodayContent() {
   const today = new Date();
   const todayStr = toISODate(today);
   const { showUndoToast } = useToast();

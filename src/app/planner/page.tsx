@@ -12,12 +12,29 @@ import {
   formatMonthYear,
   getWeekDays,
 } from "@/lib/i18n/format";
+import { ClientOnly } from "@/components/ClientOnly";
 import { AppShell } from "@/components/AppShell";
 import { EmptyState } from "@/components/EmptyState";
 import { TaskModal } from "@/components/TaskModal";
 import { Calendar, Check, Clock, ChevronLeft, ChevronRight } from "lucide-react";
 
 export default function PlannerPage() {
+  return (
+    <ClientOnly
+      fallback={
+        <div className="min-h-screen flex items-center justify-center p-4">
+          <div className="text-xs font-semibold text-text-2 tracking-widest uppercase">
+            Loading Planner…
+          </div>
+        </div>
+      }
+    >
+      <PlannerContent />
+    </ClientOnly>
+  );
+}
+
+function PlannerContent() {
   const [selectedDate, setSelectedDate] = useState<Date>(new Date());
   const [viewMode, setViewMode] = useState<"day" | "week" | "month">("day");
   const [taskModalOpen, setTaskModalOpen] = useState(false);
