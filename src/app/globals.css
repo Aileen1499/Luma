@@ -1,0 +1,100 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --bg-base: #F7F1E8;
+  --bg-lavender: #D6CBFA;
+  --bg-peach: #FBD6BD;
+  --bg-mint: #C6E6D6;
+
+  --color-surface: #FFFFFF;
+  --color-border: rgba(28, 26, 38, 0.10);
+  --color-ink: #1E1A33;
+  --color-ink-strong: #1C1A26;
+  --color-text-2: #4A4560;
+  --color-accent: #5E52C9;
+  --color-success: #3F8F6B;
+  --color-missed: #F7E2D5;
+  --color-gold: #E3A94B;
+}
+
+body {
+  background-color: var(--bg-base);
+  background-image: 
+    radial-gradient(at 90% 10%, rgba(214, 203, 250, 0.45) 0px, transparent 50%),
+    radial-gradient(at 10% 40%, rgba(251, 214, 189, 0.4) 0px, transparent 50%),
+    radial-gradient(at 85% 85%, rgba(198, 230, 214, 0.45) 0px, transparent 50%);
+  background-attachment: fixed;
+  color: var(--color-ink);
+  font-family: var(--font-manrope), -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft YaHei", sans-serif;
+  min-height: 100vh;
+  margin: 0;
+  padding: 0;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+h1, h2, h3, .font-display {
+  font-family: var(--font-bricolage), -apple-system, BlinkMacSystemFont, sans-serif;
+  font-weight: 600;
+  letter-spacing: -0.015em;
+}
+
+/* Card surfaces: strictly NO box-shadows per Section 8 & 9 */
+.luma-card {
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: 18px;
+  box-shadow: none !important;
+}
+
+.luma-button-primary {
+  background-color: var(--color-ink-strong);
+  color: #FFFFFF;
+  border-radius: 14px;
+  font-weight: 600;
+  box-shadow: none !important;
+  transition: opacity 0.15s ease;
+}
+.luma-button-primary:active {
+  opacity: 0.85;
+}
+
+.luma-button-secondary {
+  background-color: rgba(28, 26, 38, 0.05);
+  color: var(--color-ink);
+  border: 1px solid var(--color-border);
+  border-radius: 14px;
+  font-weight: 600;
+  box-shadow: none !important;
+}
+
+/* Striped pattern for missed sessions (Accessibility requirement: never color alone) */
+.pattern-striped {
+  background: repeating-linear-gradient(
+    45deg,
+    #F7E2D5,
+    #F7E2D5 4px,
+    #FFFFFF 4px,
+    #FFFFFF 8px
+  );
+  border: 1px solid rgba(28, 26, 38, 0.15);
+}
+
+/* Hatched pattern for paused routines */
+.pattern-hatched {
+  background: repeating-linear-gradient(
+    -45deg,
+    rgba(28, 26, 38, 0.06),
+    rgba(28, 26, 38, 0.06) 3px,
+    transparent 3px,
+    transparent 6px
+  );
+}
+
+/* Safe area padding for floating dock */
+.pb-safe {
+  padding-bottom: calc(env(safe-area-inset-bottom, 16px) + 80px);
+}
+
