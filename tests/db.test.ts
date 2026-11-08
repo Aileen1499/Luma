@@ -149,3 +149,4 @@ describe("LUMA Local-First Data Layer", () => {
     expect(await db.tasks.count()).toBe(1);
   });
 });
+

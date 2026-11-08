@@ -256,3 +256,4 @@ export function FocusTimerModal({
     </div>
   );
 }
+

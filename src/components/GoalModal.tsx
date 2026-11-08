@@ -114,3 +114,4 @@ export function GoalModal({ isOpen, onClose, onSaved }: GoalModalProps) {
     </div>
   );
 }
+
